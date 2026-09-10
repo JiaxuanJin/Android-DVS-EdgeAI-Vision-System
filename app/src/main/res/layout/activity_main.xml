@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Camera + DVS split-screen area -->
+    <LinearLayout
+        android:id="@+id/cameraContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Top half: normal camera preview -->
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Red split line -->
+        <View
+            android:id="@+id/splitLine"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#FF1744" />
+
+        <!-- Bottom half: DVS / grayscale / difference-frame output -->
+        <ImageView
+            android:id="@+id/eventImageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#000000"
+            android:scaleType="fitXY" />
+
+    </LinearLayout>
+
+    <!-- Home screen instruction -->
+    <TextView
+        android:id="@+id/tvInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="Smartphone DVS Emulator\nPress Start Camera to begin"
+        android:textColor="#222222"
+        android:textSize="22sp" />
+
+    <!-- Start camera button -->
+    <Button
+        android:id="@+id/btnStartCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="100dp"
+        android:text="Start Camera"
+        android:textSize="18sp" />
+
+    <!-- Overlay controls -->
+    <FrameLayout
+        android:id="@+id/overlayLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:elevation="50dp"
+        android:focusable="false"
+        android:translationZ="50dp">
+
+        <!-- Menu button -->
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="96dp"
+            android:layout_height="54dp"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
+            android:backgroundTint="#2196F3"
+            android:elevation="80dp"
+            android:text="Menu"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:translationZ="80dp"
+            android:visibility="gone" />
+
+        <!-- Display mode menu -->
+        <LinearLayout
+            android:id="@+id/menuPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="136dp"
+            android:background="#DD000000"
+            android:elevation="90dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:translationZ="90dp"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnModeCameraOnly"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:text="Camera Only Mode"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnModeGrayscale"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:text="Grayscale Mode"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnModeDifference"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:text="Difference Frame Mode"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnModeDvsOnly"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:text="DVS Only Mode"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnModeComparison"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:text="Comparison Mode"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnModeParameter"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:text="Parameter Mode"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <!-- Parameter display -->
+        <TextView
+            android:id="@+id/tvStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="136dp"
+            android:background="#99000000"
+            android:elevation="85dp"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="#FF1744"
+            android:textSize="14sp"
+            android:translationZ="85dp"
+            android:visibility="gone" />
+
+        <!-- Back button -->
+        <Button
+            android:id="@+id/btnBackHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="#6F4DBF"
+            android:elevation="100dp"
+            android:text="Back to home"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:translationZ="100dp"
+            android:visibility="gone" />
+
+        <!-- Threshold controls -->
+        <LinearLayout
+            android:id="@+id/thresholdPanel"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="24dp"
+            android:background="#99000000"
+            android:clickable="true"
+            android:elevation="100dp"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:translationZ="100dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvThresholdValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:text="Threshold: 15"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <SeekBar
+                android:id="@+id/seekThreshold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="55"
+                android:progress="10" />
+
+            <Switch
+                android:id="@+id/switchAutoThreshold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:text="Auto threshold"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</FrameLayout>
